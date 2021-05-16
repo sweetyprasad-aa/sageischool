@@ -1,0 +1,151 @@
+<div *ngIf="students.length">
+    <h3>Students</h3>
+    <br>
+    <table class="table table-hover table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th>Id</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Class</th>
+            <th>Login Id</th>
+            <th>Password</th>
+            <th>Phone</th>
+            <th>User Status</th>
+            <th>Created Timestamp</th>
+            <th>Modified Timestamp</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let student of students">
+              <td>
+                <button type="button" style="font-size:10px" class="btn btn-primary" (click)="setStudentDetails(student)">
+                  {{student.key}}
+                </button>
+              </td>
+              <td>{{student.fname}}</td>
+              <td>{{student.lname}}</td>
+              <td>{{student.class}}</td>
+              <td>{{student.loginId}}</td>
+              <td>{{student.password}}</td>
+              <td>{{student.phone}}</td>
+              <td>{{student.userStatus}}</td>
+              <td>{{student.createdTimestamp}}</td>
+              <td>{{student.modifiedTimestamp}}</td>
+              <td>
+                <button type="button" class="btn btn-danger"
+                  data-toggle="modal" data-target="#delete-modal"
+                                (click)=prepareDeleteStudent(student) >&times;</button>
+              </td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+  
+  <!-- The Modal -->
+  <div class="modal fade" id="delete-modal" data-backdrop="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+  
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <h4 class="modal-title">Delete!</h4>
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+  
+    <!-- Modal body -->
+    <div class="modal-body">
+        <div *ngIf="deletedStudent">
+          <p [hidden] = "returnedMessage">
+            Do you want delete a student with id = {{deletedStudent.key}}
+          </p>
+          <p [hidden] = "!returnedMessage">
+            {{returnedMessage}}
+          </p>
+        </div>
+    </div>
+  
+    <!-- Modal footer -->
+    <div class="modal-footer">
+      <button [hidden] = "returnedMessage" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      <button [hidden] = "returnedMessage" type="button" class="btn btn-danger" (click)="deleteStudent()">Delete</button>
+      <button [hidden] = "!returnedMessage" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    </div>
+    </div>
+  </div>
+  </div>
+  
+  <div *ngIf="showStudent">
+    <h3>Update Student</h3>
+    <form (ngSubmit)="updateStudent()">
+        <!-- ID -->
+        <div class="form-group">
+          <label for="id">Id:</label>
+          <input type="number" class="form-control"
+                    id="id" required [(ngModel)]="showStudent.key" name="id" disabled>
+        </div>
+        <!-- First name -->
+        <div class="form-group">
+          <label for="fname">First Name:</label>
+          <input type="text" class="form-control" placeholder="Enter First Name"
+                    id="fname" required [(ngModel)]="showStudent.fname" name="fname">
+        </div>
+        <!-- Last name -->
+        <div class="form-group">
+            <label for="lname">Last Name:</label>
+            <input type="text" class="form-control" placeholder="Enter Last Name"
+                      id="lname" required [(ngModel)]="showStudent.lname" name="lname">
+        </div>
+        <!-- Password -->
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" placeholder="Enter Password"
+                      id="password" required [(ngModel)]="showStudent.password" name="password">
+        </div>
+  
+        <!-- Login Id -->
+        <div class="form-group">
+          <label for="loginId">Login Id</label>
+          <input type="number" class="form-control" placeholder="Enter Login Id"
+                      id="loginId" required [(ngModel)]="showStudent.loginId" name="loginId">
+        </div>
+  
+        <!-- User Class -->
+        <div class="form-group">
+            <label for="class">Class:</label>
+            <input type="text" class="form-control" placeholder="Enter Class"
+                      id="class" required [(ngModel)]="showStudent.class" name="class">
+        </div>
+  
+        <!-- Phone -->
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="number" class="form-control" placeholder="Enter Phone Number"
+                        id="phone" required [(ngModel)]="showStudent.phone" name="phone">
+          </div>
+  
+        <!-- User Status -->
+        <div class="form-group">
+            <label for="userStatus">User Status</label>
+            <input type="text" class="form-control" placeholder="Enter User Status"
+                        id="userStatus" required [(ngModel)]="showStudent.userStatus" name="userStatus">
+          </div>
+  
+        <!-- Created Timestamp -->
+        <div class="form-group">
+            <label for="createdTimestamp">Created Timestamp</label>
+            <input type="text" class="form-control" placeholder="Enter Created Timestamp"
+                        id="createdTimestamp" required [(ngModel)]="showStudent.createdTimestamp" name="createdTimestamp">
+          </div>
+  
+        <!-- Modified Timestamp -->
+        <div class="form-group">
+            <label for="modifiedTimestamp">Modified Timestamp</label>
+            <input type="text" class="form-control" placeholder="Modified Timestamp"
+                        id="modifiedTimestamp" required [(ngModel)]="showStudent.modifiedTimestamp" name="modifiedTimestamp">
+          </div>
+        <button type="submit" class="btn btn-success">Update</button>
+      </form>
+  </div>
+  <app-message-student></app-message-student>

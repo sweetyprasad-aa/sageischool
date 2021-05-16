@@ -1,0 +1,11 @@
+<div *ngIf="messageStudentService.messages.length">
+    <h3>Messages</h3>
+    <button type="button" class="btn btn-secondary" (click)="messageStudentService.clear()">clear</button>
+    <br>
+    <ol>
+      <li *ngFor='let message of messageStudentService.messages'>
+        <div [innerHTML]="message">
+        </div>
+      </li>
+    </ol>
+  </div>

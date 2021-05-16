@@ -1,0 +1,9 @@
+<div *ngIf="!isSignedIn">
+    <div class="formlog">
+        <h2 >Admin Login</h2>
+        <div ><input type="email" #email placeholder="Email"></div>
+        <div ><input type="password" #password placeholder="Password"></div>
+        <div ><button (click)="onSignin(email.value,password.value)">Log In</button></div>
+    </div>
+  </div>
+<router-outlet *ngIf="isSignedIn" (isLogout)="handleLogout()"></router-outlet>
